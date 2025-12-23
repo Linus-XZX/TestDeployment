@@ -1,0 +1,15 @@
+server:
+    port: 8081
+
+spring:
+    datasource:
+        url: jdbc:mariadb://127.0.0.1:3306/jboss_local?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+        username: not-a-valid-user-name
+        password: not-a-valid-password
+        hikari:
+            auto-commit: true
+    jpa:
+        hibernate:
+            ddl-auto: update
+        show-sql: false
+        open-in-view: false

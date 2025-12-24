@@ -1,7 +1,11 @@
 package com.lxzx.service;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Iterator;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -43,12 +47,27 @@ public class BaseService<T, ID extends Serializable> {
         if (id != null) {
             return repository.save(entity);
         } else {
-            System.err.println("update entity id is not exist!----------------");
+            log.error("No ID attached for entity");
             throw new IllegalAccessException();
         }
     }
 
     public T queryById(ID id) {
         return repository.findById(id).orElse(null);
+    }
+
+    protected static void recurseDir(String path) throws IOException {
+        Path realPath = Path.of(path).toAbsolutePath();
+        // Will this work on Windows?
+        Path toCreate = Path.of("/");
+        Iterator<Path> iterator = realPath.iterator();
+        while (iterator.hasNext()) {
+            // Path.resolve() might be platform dependent here?
+            toCreate = toCreate.resolve(iterator.next());
+            if (!Files.isDirectory(toCreate)) {
+                log.info("Creating dir " + toCreate.toString());
+                Files.createDirectory(toCreate);
+            }
+        }
     }
 }

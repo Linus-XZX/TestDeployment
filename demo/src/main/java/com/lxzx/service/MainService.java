@@ -73,18 +73,22 @@ public class MainService extends BaseService<MainEntity, Long> {
             } catch (ZipException e) {
                 // UTF8 is usually more prevalent but many compressors on Windows seems to use
                 // current code page, which is GB2312 in our case :sadge:
+                log.info("Falling back to GB2312");
                 zipFile = new ZipFile(new File(savePath), Charset.forName("GB2312"));
             } catch (IOException e) {
                 log.error(e.getLocalizedMessage());
             } finally {
                 hasBaseFolder = (zipFile.entries().nextElement().getName().replace("/", ""))
                         .equals(yearMonth);
+                for (Enumeration<? extends ZipEntry> entries = zipFile.entries(); entries.hasMoreElements();) {
+                    log.info(entries.nextElement().getName());
+                }
                 zipFile.close();
             }
 
-            // Extractor.extract自动close流，不需要套try
+            // Extractor.extract() closes the stream automatically
             Extractor extractor = CompressUtil.createExtractor(Charset.defaultCharset(), new File(savePath));
-            extractor.extract(new File(uploadPath + (hasBaseFolder ? "" : yearMonth)));
+            extractor.extract(new File(basePath + uploadPath + (hasBaseFolder ? "" : yearMonth)));
         }
         return "";
     }

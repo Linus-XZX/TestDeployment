@@ -2,6 +2,9 @@ package com.lxzx.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Data
@@ -10,11 +13,6 @@ import jakarta.persistence.*;
 @Table(name = "main_class")
 public class MainEntity extends BaseEntity {
 
-    public MainEntity(Boolean test) {
-        super();
-        this.setTest(test);
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -22,4 +20,10 @@ public class MainEntity extends BaseEntity {
 
     @Column(name = "test_bools", nullable = true)
     private Boolean test;
+
+    @Column(name = "test_bool_array", nullable = true)
+    private Boolean[] testArray;
+
+    @Column(name = "test_bool_list", nullable = true)
+    private List<Boolean> testList;
 }

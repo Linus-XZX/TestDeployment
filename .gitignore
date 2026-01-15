@@ -17,3 +17,6 @@ buildNumber.properties
 .classpath
 
 .vscode
+
+# Push changes to this file only when explicitly requested
+resources/application.yml

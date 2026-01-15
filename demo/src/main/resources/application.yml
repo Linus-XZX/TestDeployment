@@ -6,7 +6,7 @@ server:
 
 spring:
     datasource:
-        url: jdbc:mariadb://127.0.0.1:3306/jboss_local?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+        url: jdbc:mariadb://127.0.0.1:3306/database_name_here?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
         username: not-a-valid-username
         password: not-a-valid-password
         hikari:

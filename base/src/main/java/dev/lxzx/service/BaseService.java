@@ -1,4 +1,4 @@
-package com.lxzx.service;
+package dev.lxzx.service;
 
 import java.io.IOException;
 import java.io.Serializable;

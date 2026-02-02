@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{css/bootstrap.min.css}" rel="stylesheet">
+</head>
+
+<body>
+    <noscript>JavaScript loading failed :(</noscript>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                Test Deployment App
+            </a>
+        </div>
+    </nav>
+    <div class="container">
+        <table id="entity">
+            <tr>
+                <th>Field</th>
+                <th>Value</th>
+            </tr>
+        </table>
+    </div>
+    <script th:inline="javascript">
+        const entity = [[${ item }]];
+        const entityKeys = Object.keys(entity);
+        const theTable = document.getElementById("entity");
+        entityKeys.forEach((entityKey) => {
+            const newRow = document.createElement("tr");
+            const keyCell = document.createElement("td");
+            const valueCell = document.createElement("td");
+            const keyText = document.createTextNode(entityKey);
+            const valueText = document.createTextNode(entity[entityKey]);
+            keyCell.appendChild(keyText);
+            valueCell.appendChild(valueText);
+            newRow.appendChild(keyCell);
+            newRow.appendChild(valueCell);
+            theTable.appendChild(newRow);
+        })
+    </script>
+</body>
+
+</html>

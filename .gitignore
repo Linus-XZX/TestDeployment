@@ -17,3 +17,6 @@ buildNumber.properties
 .classpath
 
 .vscode
+
+# Otherwise publicly available assets
+bootstrap.min.css

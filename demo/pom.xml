@@ -6,16 +6,22 @@
 
     <parent>
         <artifactId>test</artifactId>
-        <groupId>com.lxzx</groupId>
+        <groupId>dev.lxzx</groupId>
         <version>current</version>
     </parent>
 
-    <groupId>com.lxzx</groupId>
+    <groupId>dev.lxzx</groupId>
     <artifactId>demo</artifactId>
     <version>current</version>
     <packaging>war</packaging>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>3.0-rc5</version>
+        </dependency>
         <dependency>
             <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-annotations</artifactId>
@@ -60,7 +66,7 @@
             <version>3.2.3</version>
         </dependency>
         <dependency>
-            <groupId>com.lxzx</groupId>
+            <groupId>dev.lxzx</groupId>
             <artifactId>base</artifactId>
             <version>${base.version}</version>
         </dependency>

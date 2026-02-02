@@ -1,4 +1,4 @@
-package com.lxzx.service;
+package dev.lxzx.service;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,17 +10,21 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.slf4j.Slf4j;
 
-import com.lxzx.entity.MainEntity;
+import dev.lxzx.dao.MainDao;
+import dev.lxzx.entity.MainEntity;
 
 import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.extra.compress.CompressUtil;
 import cn.hutool.extra.compress.extractor.Extractor;
+import cn.hutool.json.JSONArray;
+import cn.hutool.json.JSONUtil;
 
 @Slf4j
 @Service
@@ -30,6 +34,9 @@ public class MainService extends BaseService<MainEntity, Long> {
     private String uploadPath;
     @Value("${system.filePath.base}")
     private String basePath;
+
+    @Autowired
+    private MainDao mainDao;
 
     // This stays in MainService since MultipartFile is part of Spring
     private String saveFile(MultipartFile file, String savePath, String[] checkFilesuffixName) throws IOException {
@@ -91,5 +98,16 @@ public class MainService extends BaseService<MainEntity, Long> {
             extractor.extract(new File(basePath + uploadPath + (hasBaseFolder ? "" : yearMonth)));
         }
         return "";
+    }
+
+    public String testMerge(Long groupId) {
+        JSONArray ret = new JSONArray();
+        mainDao.findAllByGroupId(groupId).forEach(item -> {
+            JSONArray entries = JSONUtil.parseObj(item.getTest()).getJSONArray("111");
+            for (Object entry : entries) {
+                ret.put(entry);
+            }
+        });
+        return ret.toString();
     }
 }

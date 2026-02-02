@@ -1,14 +1,16 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.Arrays;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.lxzx.MainApp;
-import com.lxzx.service.MainService;
-import com.lxzx.entity.MainEntity;
+import dev.lxzx.MainApp;
+import dev.lxzx.service.MainService;
+
+import cn.hutool.json.JSONArray;
+import cn.hutool.json.JSONObject;
+
+import dev.lxzx.entity.MainEntity;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,20 +23,21 @@ class MainTest {
 
     @Test
     void test() {
-        MainEntity testEntity = new MainEntity();
+        JSONObject testJson = new JSONObject();
+        testJson.set("11", new JSONArray("[{\"11\": \"22\"}, {\"33\": \"44\"}]"));
+        testJson.set("111", new JSONArray("[{\"111\": \"222\"}, {\"333\": \"444\"}]"));
 
-        Boolean[] theList = new Boolean[]{false, false};
+        MainEntity testMain = new MainEntity();
+        testMain.setTest(testJson.toString());
+        testMain.setTestWrapped(testJson.toString());
+        testMain.setGroupId(1L);
+        mainService.create(testMain);
 
-        testEntity.setTest(false);
-        testEntity.setTestArray(theList);
-        testEntity.setTestList(Arrays.asList(theList));
-        
-        Long id = mainService.create(testEntity).getId();
-
-        MainEntity retrievedEntity = mainService.queryById(id);
-
-        assertEquals(false, retrievedEntity.getTestArray()[1]);
-        assertEquals(false, retrievedEntity.getTestList().get(1));
+        MainEntity testMain2 = new MainEntity();
+        testMain2.setTest(testJson.toString());
+        testMain2.setTestWrapped(testJson.toString());
+        testMain2.setGroupId(1L);
+        mainService.create(testMain2);
 
         // Intentional no-op as there's nothing to test rn
         assertEquals(1, 2 - 1);

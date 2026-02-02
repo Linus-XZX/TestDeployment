@@ -1,9 +1,9 @@
-package com.lxzx.entity;
+package dev.lxzx.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonRawValue;
 
 import jakarta.persistence.*;
 
@@ -18,12 +18,13 @@ public class MainEntity extends BaseEntity {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "test_bools", nullable = true)
-    private Boolean test;
+    @Column(name = "group_id", nullable = true)
+    private Long groupId;
 
-    @Column(name = "test_bool_array", nullable = true)
-    private Boolean[] testArray;
+    @JsonRawValue
+    @Column(name = "test", nullable = true)
+    private String test;
 
-    @Column(name = "test_bool_list", nullable = true)
-    private List<Boolean> testList;
+    @Column(name = "test_wrapped", nullable = true)
+    private String testWrapped;
 }

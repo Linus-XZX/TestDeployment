@@ -1,4 +1,4 @@
-package com.lxzx.controller;
+package dev.lxzx.controller;
 
 import lombok.extern.log4j.Log4j2;
 

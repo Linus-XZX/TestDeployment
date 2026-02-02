@@ -12,4 +12,8 @@ Not really much I can do here since I am specifically replicating the company en
 
 # Mentions
 
-[This entry](https://lxzx.my.to/index.php/2025/12/24/java-zips-and-encodings/) in my own blog. This is an actual issue it caught by the way.
+[This entry](https://www.lxzx.dev/java-zips-and-encodings/) in my own blog. This is an actual issue it caught by the way.
+
+# TODOs
+
+- Keep throwing updates in...? Not that I can really break this thing.

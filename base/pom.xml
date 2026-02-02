@@ -6,11 +6,11 @@
 
     <parent>
         <artifactId>test</artifactId>
-        <groupId>com.lxzx</groupId>
+        <groupId>dev.lxzx</groupId>
         <version>current</version>
     </parent>
 
-    <groupId>com.lxzx</groupId>
+    <groupId>dev.lxzx</groupId>
     <artifactId>base</artifactId>
     <version>current</version>
 

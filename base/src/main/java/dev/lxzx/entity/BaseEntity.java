@@ -1,4 +1,4 @@
-package com.lxzx.entity;
+package dev.lxzx.entity;
 
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package com.lxzx.domain;
+package dev.lxzx.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;

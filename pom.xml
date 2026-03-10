@@ -18,9 +18,11 @@
     <properties>
         <base.version>current</base.version>
         <java.version>21</java.version>
-        <springboot.version>3.5.9</springboot.version>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
+        <springboot.version>3.5.11</springboot.version>
+        <querydsl.version>7.1</querydsl.version>
+        <lombok.version>1.18.42</lombok.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
         <project_home>/home/linus_xu/TestDeployment</project_home>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.sourceEncoding>UTF-8</project.reporting.sourceEncoding>
@@ -38,9 +40,31 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.14.1</version>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <release>${java.version}</release>
                     <encoding>${project.build.sourceEncoding}</encoding>
+                     <annotationProcessorPaths>
+                        <!-- Explicit opt-in required via annotationProcessors or
+                                annotationProcessorPaths on Java 22+, see https://bugs.openjdk.org/browse/JDK-8306819 -->
+                        <annotationProcessorPath>
+                            <groupId>io.github.openfeign.querydsl</groupId>
+                            <artifactId>querydsl-apt</artifactId>
+                            <version>${querydsl.version}</version>
+                            <classifier>jpa</classifier>
+                        </annotationProcessorPath>
+                        <annotationProcessorPath>
+                            <groupId>jakarta.persistence</groupId>
+                            <artifactId>jakarta.persistence-api</artifactId>
+                            <version>3.2.0</version>
+                        </annotationProcessorPath>
+                        <annotationProcessorPath>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </annotationProcessorPath>
+                    </annotationProcessorPaths>
+                    <!-- Recommended: Some IDE's might require this configuration to include generated sources for IDE usage -->
+                    <generatedTestSourcesDirectory>target/generated-test-sources</generatedTestSourcesDirectory>
+                    <generatedSourcesDirectory>target/generated-sources</generatedSourcesDirectory>
                 </configuration>
             </plugin>
             <plugin>

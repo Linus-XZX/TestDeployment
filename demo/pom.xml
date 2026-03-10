@@ -28,13 +28,6 @@
             <version>2.2.41</version>
         </dependency>
         <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-dependencies</artifactId>
-			<version>${springboot.version}</version>
-			<type>pom</type>
-			<scope>import</scope>
-		</dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <version>${springboot.version}</version>
@@ -73,7 +66,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.38</version>
+            <version>${lombok.version}</version>
         </dependency>
         <dependency>
             <groupId>cn.hutool</groupId>
@@ -81,16 +74,14 @@
             <version>5.8.36</version>
         </dependency>
         <dependency>
-            <groupId>com.querydsl</groupId>
+            <groupId>io.github.openfeign.querydsl</groupId>
             <artifactId>querydsl-jpa</artifactId>
-            <classifier>jakarta</classifier>
-            <version>5.1.0</version>
+            <version>${querydsl.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.querydsl</groupId>
+            <groupId>io.github.openfeign.querydsl</groupId>
             <artifactId>querydsl-apt</artifactId>
-            <version>5.1.0</version>
-            <classifier>jakarta</classifier>
+            <version>${querydsl.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -125,6 +116,13 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${springboot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

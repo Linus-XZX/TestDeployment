@@ -47,7 +47,7 @@ public class BaseService<T, ID extends Serializable> {
         if (id != null) {
             return repository.save(entity);
         } else {
-            log.error("No ID attached for entity");
+            log.error("Bailing out from update(T): No ID attached for entity");
             throw new IllegalAccessException();
         }
     }

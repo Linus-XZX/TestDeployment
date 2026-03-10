@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.springframework.data.domain.Sort;
 
-public class BaseDao implements Serializable {
+public class BaseCriteria implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String sortName = "id";

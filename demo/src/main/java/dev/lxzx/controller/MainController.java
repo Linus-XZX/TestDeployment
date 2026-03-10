@@ -5,55 +5,50 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import dev.lxzx.entity.MainEntity;
+import dev.lxzx.entity.ResponseItem;
 import dev.lxzx.service.MainService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PutMapping;
 
 @Slf4j
 @Component
-@Controller
+@RestController
 public class MainController extends BaseController {
 
     @Autowired
     MainService mainService;
 
     @PostMapping("/uploadAndDecompress")
-    public String uploadAndDecompress(Model model, @RequestParam(value = "files", required = false) MultipartFile[] files) throws IOException {
-        model.addAttribute("response", mainService.uploadAndDecompress(files));
-        return "index";
+    public ResponseItem<String> uploadAndDecompress(@RequestParam(value = "files") MultipartFile[] files) throws IOException {
+        return ResponseItem.success(mainService.uploadAndDecompress(files));
     }
 
     @GetMapping("/get")
-    public String getItem(Model model, @RequestParam(value = "id", required = true) Long id) {
-        model.addAttribute("item", mainService.queryById(id));
-        return "entity";
+    public ResponseItem<MainEntity> getItem(@RequestParam(value = "id", required = true) Long id) {
+        return ResponseItem.success(mainService.queryById(id));
     }
 
     @GetMapping("/getAllTests")
-    public String getAllTests(Model model, @RequestParam(value = "group", required = true) Long groupId) {
-        model.addAttribute("response", mainService.testMerge(groupId));
-        return "index";
+    public ResponseItem<String> getAllTests(@RequestParam(value = "group", required = true) Long groupId) {
+        return ResponseItem.success(mainService.testMerge(groupId));
     }
     
 
     @PostMapping("/update")
-    public String updateItem(Model model, @RequestBody MainEntity item) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-        mainService.update(item);
-        return "index";
+    public ResponseItem<MainEntity> updateItem(@RequestBody MainEntity item) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+        return ResponseItem.success(mainService.update(item));
     }
 
     @PutMapping("/create")
-    public String createItem(Model model, @RequestBody MainEntity item) {
-        mainService.create(item);
-        return "index";
+    public ResponseItem<MainEntity> createItem(@RequestBody MainEntity item) {
+        return ResponseItem.success(mainService.create(item));
     }
 }

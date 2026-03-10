@@ -15,6 +15,10 @@
     <version>current</version>
     <packaging>war</packaging>
 
+    <properties>
+        <hutool.version>5.8.43</hutool.version>
+    </properties>
+
     <dependencies>
 
         <dependency>
@@ -70,8 +74,13 @@
         </dependency>
         <dependency>
             <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-            <version>5.8.36</version>
+            <artifactId>hutool-json</artifactId>
+            <version>${hutool.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-extra</artifactId>
+            <version>${hutool.version}</version>
         </dependency>
         <dependency>
             <groupId>io.github.openfeign.querydsl</groupId>

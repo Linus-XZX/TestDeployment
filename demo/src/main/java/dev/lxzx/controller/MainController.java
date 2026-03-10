@@ -15,10 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import dev.lxzx.entity.MainEntity;
 import dev.lxzx.service.MainService;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PutMapping;
-
 
 @Slf4j
 @Component
@@ -28,9 +26,9 @@ public class MainController extends BaseController {
     @Autowired
     MainService mainService;
 
-    @PostMapping("/testFile")
-    public String testFile(Model model, @RequestParam(value = "files", required = false) MultipartFile[] files) throws IOException {
-        model.addAttribute("response", mainService.testFile(files));
+    @PostMapping("/uploadAndDecompress")
+    public String uploadAndDecompress(Model model, @RequestParam(value = "files", required = false) MultipartFile[] files) throws IOException {
+        model.addAttribute("response", mainService.uploadAndDecompress(files));
         return "index";
     }
 

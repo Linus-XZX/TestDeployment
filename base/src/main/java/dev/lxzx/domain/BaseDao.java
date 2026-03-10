@@ -27,8 +27,7 @@ public class BaseDao implements Serializable {
         }
         return sortName;
     }
-
-    //获取排序信息
+    
     public Sort getSort() {
         if (multipleSort.isEmpty() || multipleSort.get(0).isEmpty()) {
             return Sort.by(sortDirection(orderBy), sortName());

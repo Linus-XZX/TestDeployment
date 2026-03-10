@@ -20,7 +20,6 @@ import lombok.extern.slf4j.Slf4j;
 import dev.lxzx.dao.MainDao;
 import dev.lxzx.entity.MainEntity;
 
-import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.extra.compress.CompressUtil;
 import cn.hutool.extra.compress.extractor.Extractor;
 import cn.hutool.json.JSONArray;
@@ -39,10 +38,10 @@ public class MainService extends BaseService<MainEntity, Long> {
     private MainDao mainDao;
 
     // This stays in MainService since MultipartFile is part of Spring
-    private String saveFile(MultipartFile file, String savePath, String[] checkFilesuffixName) throws IOException {
+    private String saveFile(MultipartFile file, String savePath, String[] allowedSuffixes) throws IOException {
         String fileName = file.getOriginalFilename();
-        if (CharSequenceUtil.isEmpty(fileName)) {
-            throw new IOException("No name in upload");
+        if (fileName == null || fileName.isEmpty()) {
+            throw new IOException("Bailing out of saveFile(file, savePath, allowedSuffixes): No name in upload");
         }
         fileName = fileName.replace(";","");
         fileName = fileName.replace(" ","");
@@ -53,8 +52,8 @@ public class MainService extends BaseService<MainEntity, Long> {
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
 
         fileName = fileName.substring(0,fileName.lastIndexOf("."));
-        if (Objects.nonNull(checkFilesuffixName) && !Arrays.asList(checkFilesuffixName).contains(suffixName)){
-            throw new IOException(Arrays.toString(checkFilesuffixName) + " extension expected");
+        if (Objects.nonNull(allowedSuffixes) && !Arrays.asList(allowedSuffixes).contains(suffixName)){
+            throw new IOException(Arrays.toString(allowedSuffixes) + " extension expected");
         }
         recurseDir(savePath);
         String filePath = savePath + fileName + suffixName;
@@ -68,10 +67,14 @@ public class MainService extends BaseService<MainEntity, Long> {
         return "";
     }
 
-    public String testFile(MultipartFile[] files) throws IOException {
+    public String uploadAndDecompress(MultipartFile[] files) throws IOException {
         for (MultipartFile file : files) {
             boolean hasBaseFolder = false;
-            String yearMonth = file.getOriginalFilename().replace(".zip", "");
+            String fileName = file.getOriginalFilename();
+            if (fileName == null || fileName.isEmpty()) {
+                throw new IOException("Bailing out of uploadAndDecompress(files): No name in upload");
+            }
+            String yearMonth = fileName.replace(".zip", "");
             saveFile(file, basePath + uploadPath, new String[]{".zip"});
             String savePath = basePath + uploadPath + file.getOriginalFilename();
             ZipFile zipFile = null;

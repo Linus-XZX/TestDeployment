@@ -18,6 +18,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import jakarta.annotation.PostConstruct;
+import lombok.NonNull;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
@@ -38,11 +39,11 @@ public class BaseService<T, ID extends Serializable> {
         executor = (JpaSpecificationExecutor) repository;
     }
 
-    public T create(T entity) {
+    public T create(@NonNull T entity) {
         return repository.save(entity);
     }
 
-    public T update(T entity) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+    public T update(@NonNull T entity) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException {
         Object id = PropertyUtils.getProperty(entity, "id");
         if (id != null) {
             return repository.save(entity);
@@ -52,7 +53,7 @@ public class BaseService<T, ID extends Serializable> {
         }
     }
 
-    public T queryById(ID id) {
+    public T queryById(@NonNull ID id) {
         return repository.findById(id).orElse(null);
     }
 

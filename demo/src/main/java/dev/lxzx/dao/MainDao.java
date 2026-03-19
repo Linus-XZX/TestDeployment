@@ -6,4 +6,5 @@ import dev.lxzx.entity.MainEntity;
 
 public interface MainDao extends BaseDao<MainEntity, Long> {
     List<MainEntity> findAllByGroupId(Long groupId);
+    int countAllByGroupId(Long groupId);
 }

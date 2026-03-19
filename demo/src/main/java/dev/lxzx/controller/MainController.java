@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import dev.lxzx.dao.MainDao;
 import dev.lxzx.entity.MainEntity;
 import dev.lxzx.entity.ResponseItem;
 import dev.lxzx.service.MainService;
@@ -25,6 +26,9 @@ public class MainController extends BaseController {
 
     @Autowired
     MainService mainService;
+
+    @Autowired
+    MainDao mainDao;
 
     @PostMapping("/uploadAndDecompress")
     public ResponseItem<String> uploadAndDecompress(@RequestParam(value = "files") MultipartFile[] files) throws IOException {
@@ -51,4 +55,10 @@ public class MainController extends BaseController {
     public ResponseItem<MainEntity> createItem(@RequestBody MainEntity item) {
         return ResponseItem.success(mainService.create(item));
     }
+
+    @GetMapping("/count")
+    public ResponseItem<Integer> getCount() {
+        return ResponseItem.success(mainDao.countAllByGroupId(1L));
+    }
+    
 }

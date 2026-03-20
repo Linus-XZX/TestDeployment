@@ -19,9 +19,9 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import jakarta.annotation.PostConstruct;
 import lombok.NonNull;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
-@Log4j2
+@Slf4j
 public class BaseService<T, ID extends Serializable> {
     @Autowired
     JpaRepository<T, ID> repository;

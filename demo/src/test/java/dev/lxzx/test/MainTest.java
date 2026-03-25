@@ -25,21 +25,12 @@ class MainTest {
 
     @Test
     void test() {
-        JSONObject testJson = new JSONObject();
-        testJson.set("11", new JSONArray("[{\"11\": \"22\"}, {\"33\": \"44\"}]"));
-        testJson.set("111", new JSONArray("[{\"111\": \"222\"}, {\"333\": \"444\"}]"));
-
-        MainEntity testMain = new MainEntity();
-        testMain.setTest(testJson.toString());
-        testMain.setTestWrapped(testJson.toString());
-        testMain.setGroupId(1L);
-        mainService.create(testMain);
-
-        MainEntity testMain2 = new MainEntity();
-        testMain2.setTest(testJson.toString());
-        testMain2.setTestWrapped(testJson.toString());
-        testMain2.setGroupId(1L);
-        mainService.create(testMain2);
+        try {
+            mainService.testRollback(1L);
+        } catch (Exception e) {
+            log.error(e.getLocalizedMessage());
+        }
+        
 
         // Intentional no-op as there's nothing to test rn
         assertEquals(1, 2 - 1);

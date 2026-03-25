@@ -13,13 +13,13 @@ import java.util.zip.ZipFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.slf4j.Slf4j;
 
 import dev.lxzx.dao.MainDao;
 import dev.lxzx.entity.MainEntity;
-
 import cn.hutool.extra.compress.CompressUtil;
 import cn.hutool.extra.compress.extractor.Extractor;
 import cn.hutool.json.JSONArray;
@@ -112,5 +112,14 @@ public class MainService extends BaseService<MainEntity, Long> {
             }
         });
         return ret.toString();
+    }
+    
+    @Transactional(rollbackFor = Exception.class)
+    public void testRollback(Long id) throws Exception {
+        MainEntity test = this.queryById(id);
+        test.setTest("not rolled back");
+        this.update(test);
+
+        throw new Exception("Expected exception - move along");
     }
 }

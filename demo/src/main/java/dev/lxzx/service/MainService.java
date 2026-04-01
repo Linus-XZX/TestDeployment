@@ -2,6 +2,7 @@ package dev.lxzx.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.Enumeration;
@@ -37,6 +38,12 @@ public class MainService extends BaseService<MainEntity, Long> {
     @Autowired
     private MainDao mainDao;
 
+    private class ExpectedException extends Exception {
+        ExpectedException(String message) {
+            super(message);
+        }
+    }
+
     // This stays in MainService since MultipartFile is part of Spring
     private String saveFile(MultipartFile file, String savePath, String[] allowedSuffixes) throws IOException {
         String fileName = file.getOriginalFilename();
@@ -45,8 +52,8 @@ public class MainService extends BaseService<MainEntity, Long> {
         }
         fileName = fileName.replace(";","");
         fileName = fileName.replace(" ","");
-        fileName = fileName.replace("\\)","_");
-        fileName = fileName.replace("\\(","_");
+        fileName = fileName.replace(")","_");
+        fileName = fileName.replace("(","_");
         fileName = fileName.replace("）","_");
         fileName = fileName.replace("（","_");
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
@@ -80,7 +87,7 @@ public class MainService extends BaseService<MainEntity, Long> {
             ZipFile zipFile = null;
             try {
                 zipFile = new ZipFile(new File(savePath));
-            } catch (ZipException e) {
+            } catch (ZipException _) {
                 // UTF8 is usually more prevalent but many compressors on Windows seems to use
                 // current code page, which is GB2312 in our case :sadge:
                 log.info("Falling back to GB2312");
@@ -115,11 +122,11 @@ public class MainService extends BaseService<MainEntity, Long> {
     }
     
     @Transactional(rollbackFor = Exception.class)
-    public void testRollback(Long id) throws Exception {
+    public void testRollback(Long id) throws ExpectedException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
         MainEntity test = this.queryById(id);
         test.setTest("not rolled back");
         this.update(test);
 
-        throw new Exception("Expected exception - move along");
+        throw new ExpectedException("Expected exception - move along");
     }
 }

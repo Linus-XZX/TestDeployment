@@ -20,7 +20,7 @@
         <java.version>25</java.version>
         <springboot.version>3.5.13</springboot.version>
         <querydsl.version>7.1</querydsl.version>
-        <lombok.version>1.18.42</lombok.version>
+        <lombok.version>1.18.44</lombok.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project_home>/home/linus_xu/TestDeployment</project_home>

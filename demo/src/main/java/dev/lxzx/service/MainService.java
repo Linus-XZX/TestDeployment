@@ -69,11 +69,6 @@ public class MainService extends BaseService<MainEntity, Long> {
         return filePath;
     }
 
-    public String testService(String inFile) {
-        // No-op here as it's now covered in the file-capable service
-        return "";
-    }
-
     public String uploadAndDecompress(MultipartFile[] files) throws IOException {
         for (MultipartFile file : files) {
             boolean hasBaseFolder = false;

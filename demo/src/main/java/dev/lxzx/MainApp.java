@@ -13,6 +13,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories(basePackages = "dev.lxzx.**")
 @EntityScan(basePackages = "dev.lxzx.**")
 public class MainApp extends SpringBootServletInitializer {
+    
+    // Required for catching some weird throwables...?
     @Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 		return application.sources(MainApp.class);

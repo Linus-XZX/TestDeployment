@@ -1,14 +1,14 @@
 server:
-    port: 8081
+    port: 
     servlet:
         encoding:
             force: true
 
 spring:
     datasource:
-        url: jdbc:mariadb://127.0.0.1:3306/database_name_here?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
-        username: not-a-valid-username
-        password: not-a-valid-password
+        url: 
+        username: 
+        password: 
         hikari:
             auto-commit: true
     jpa:
@@ -23,5 +23,5 @@ spring:
 
 system:
     filePath:
-        base: /put/your/own/path/here
-        uploads: and/here
+        base: 
+        uploads: 
